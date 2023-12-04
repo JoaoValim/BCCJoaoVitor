@@ -1,4 +1,7 @@
-import { Container } from "react-bootstrap";
+import { useState } from "react";
+import { Button, Container, Form, Row, Col, FloatingLabel } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import Pagina from "../templates/Pagina";
 import { useSelector,useDispatch} from 'react-redux';
 import { getUsuarios,cadastrarMensagem } from "../redux/usuarioReducer";
 import Estado from "../Estados/estado";
@@ -26,7 +29,7 @@ export default function Mensagem(){
         mensagem:""
     }
     const [usuarioFinal, setusuarioFinal] = useState(usuarioF);
-
+    const [formValidado, setFormValidado] = useState(false);
     function manipularSubmissao(e){
         const form = e.currentTarget; 
         if (form.checkValidity()){
@@ -35,6 +38,7 @@ export default function Mensagem(){
                 usuarioF.usuario = usuarioDesejado;
                 usuarioF = usuario.mensagem;
                 dispatch(cadastrarMensagem(usuarioF))
+                
                 const usuarioF= {
                     usuario:"",
                     mensagem:""

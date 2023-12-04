@@ -3,6 +3,7 @@ import CadastroUsuario from "./Telas/CadastroUsuario";
 import BatePapoTela from "./Telas/BatePapoTela";
 import Home from "./Telas/Home";
 import store from "./redux/store";
+import Mensagem from "./Telas/Mensagem";
 import { Provider } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 function App() {
@@ -13,9 +14,11 @@ function App() {
         <Routes>
           {
           }
+          
+          <Route path="/mensagem" element={<Mensagem />} />
           <Route path="/batepapogeral" element={<BatePapoTela />} />
           <Route path="/usuario" element={<CadastroUsuario />} />
-          <Route path="/" element={<Home />} />
+          <Route path="/BCCJoaoVitor/" element={<Home />} />
           {
           }
         </Routes>
