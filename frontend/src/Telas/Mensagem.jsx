@@ -1,29 +1,45 @@
-import { useState } from "react";
-import { Button, Container, Form, Row, Col, FloatingLabel } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import Pagina from "../templates/Pagina";
+import { Container } from "react-bootstrap";
 import { useSelector,useDispatch} from 'react-redux';
-import { getUsuarios,cadastrarUsuario } from "../redux/usuarioReducer";
+import { getUsuarios,cadastrarMensagem } from "../redux/usuarioReducer";
 import Estado from "../Estados/estado";
-export default function CadastroUsuario(props) {
-    const usuarioIni = {
-        nickname:"",
-        urlAvatar:"",
-    }
-    const [usuario, setusuario] = useState(usuarioIni);
-    const [formValidado, setFormValidado] = useState(false);
+
+export default function Mensagem(){
     const { estado, mensagem, usuarios } = useSelector((state) => state.usuario);
     const dispatch = useDispatch();
+    dispatch(getUsuarios());
+    const ListaUsuarios = []
+
+    const usuarioIni = {
+        nickname:"",
+        mensagem:""
+    }
+
+    const [usuario, setusuario] = useState(usuarioIni);
+
     function escreveu(e){
         const componente = e.currentTarget;
         setusuario({...usuario,[componente.name]:componente.value});
     }
 
+    const usuarioF= {
+        usuario:"",
+        mensagem:""
+    }
+    const [usuarioFinal, setusuarioFinal] = useState(usuarioF);
+
     function manipularSubmissao(e){
         const form = e.currentTarget; 
         if (form.checkValidity()){
-            dispatch(cadastrarUsuario(usuario));
-            
+            const usuarioDesejado = usuarios.find((usuarioo) => usuarioo.nickname === usuario.nickname);
+            if(usuarioDesejado != null){
+                usuarioF.usuario = usuarioDesejado;
+                usuarioF = usuario.mensagem;
+                dispatch(cadastrarMensagem(usuarioF))
+                const usuarioF= {
+                    usuario:"",
+                    mensagem:""
+                }
+            }
             setusuario(usuarioIni);
             setFormValidado(false);
         }
@@ -35,7 +51,7 @@ export default function CadastroUsuario(props) {
         e.preventDefault();
     }
 
-    return (
+    return(
         <Container>
             <Pagina/>{
             <Form noValidate validated={formValidado} onSubmit={manipularSubmissao}>
@@ -62,20 +78,20 @@ export default function CadastroUsuario(props) {
                     <Col md={4}>
                         <Form.Group>
                             <FloatingLabel
-                                label="Foto Perfil:"
+                                label="Mensagem:"
                                 className="mb-3"
                             >
                                 <Form.Control 
                                     type="text" 
-                                    placeholder="https://www.google.com/url?" 
-                                    id="urlAvatar" 
-                                    name="urlAvatar" 
+                                    placeholder="Blablabla" 
+                                    id="mensagem" 
+                                    name="mensagem" 
                                     onChange={escreveu}
-                                    value={usuario.urlAvatar}
+                                    value={usuario.mensagem}
                                     required
                                     />
                             </FloatingLabel>
-                            <Form.Control.Feedback type="invalid">Informe sua foto de perfil!</Form.Control.Feedback>
+                            <Form.Control.Feedback type="invalid">Informe a mensagem!!!!</Form.Control.Feedback>
                         </Form.Group>
                     </Col>
                 </Row>
@@ -90,5 +106,5 @@ export default function CadastroUsuario(props) {
             </Form>
         }
         </Container>
-    );
+    )
 }

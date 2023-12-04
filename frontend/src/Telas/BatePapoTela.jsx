@@ -5,9 +5,9 @@ import Estado from "../Estados/estado";
 
 export default function BatePapoTela(props){
 
+    const { estado, mensagem, usuarios } = useSelector((state) => state.usuario);
     const dispatch = useDispatch();
     dispatch(getUsuarios());
-    const { estado, mensagem, usuarios } = useSelector((state) => state.usuario);
     return(
         <Container>
             <div>

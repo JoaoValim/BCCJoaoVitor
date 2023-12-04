@@ -56,6 +56,36 @@ export const cadastrarUsuario = createAsyncThunk('cadastrarUsuario', async (usua
         }
     }
 });
+export const cadastrarMensagem = createAsyncThunk('cadastrarMensagem', async (usuario) => {
+    try {
+        const resposta = await fetch(urlBase, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(usuario)
+        });
+        const response = await resposta.json();
+        if (response.status){
+            return {
+                status: response.status,
+                mensagem: response.mensagem
+            }
+        }
+        else{
+            return {
+                status: response.status,
+                mensagem: response.mensagem
+            }
+        }
+    }
+    catch (erro) {
+        return {
+            status: false,
+            mensagem: "Não foi possível cadastrar mensagem: " + erro.message
+        }
+    }
+});
 
 const estadoInicial = {
     estado: Estado.OCIOSO,
@@ -98,7 +128,7 @@ const usuarioslice = createSlice({
                 if (action.payload.status){
                     state.estado = Estado.OCIOSO;
                     state.mensagem = action.payload.mensagem;
-                    state.usuarios.push(action.payload.produto);
+                    state.usuarios.push(action.payload.usuario);
                 }
                 else{
                     state.estado = Estado.ERRO;
@@ -106,6 +136,23 @@ const usuarioslice = createSlice({
                 }
             })
             .addCase(cadastrarUsuario.rejected, (state, action) => {
+                state.estado = Estado.ERRO;
+                state.mensagem = action.payload.mensagem;
+            }).addCase(cadastrarMensagem.pending, (state, action) =>{
+                state.estado = Estado.PENDENTE;
+                state.mensagem = 'Processando a requisição...'
+            })
+            .addCase(cadastrarMensagem.fulfilled, (state, action) =>{
+                if (action.payload.status){
+                    state.estado = Estado.OCIOSO;
+                    state.mensagem = action.payload.mensagem;
+                }
+                else{
+                    state.estado = Estado.ERRO;
+                    state.mensagem = action.payload.mensagem;
+                }
+            })
+            .addCase(cadastrarMensagem.rejected, (state, action) => {
                 state.estado = Estado.ERRO;
                 state.mensagem = action.payload.mensagem;
             })

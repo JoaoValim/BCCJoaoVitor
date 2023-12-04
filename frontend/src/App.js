@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { HashRouter, Routes,, HashRouter Route } from "react-router-dom";
 import CadastroUsuario from "./Telas/CadastroUsuario";
 import BatePapoTela from "./Telas/BatePapoTela";
 import Home from "./Telas/Home";
@@ -9,7 +9,7 @@ function App() {
   return (
     <div className="App">
       <Provider store={store}>
-      <BrowserRouter>
+      <HashRouter>
         <Routes>
           {
           }
@@ -19,7 +19,7 @@ function App() {
           {
           }
         </Routes>
-      </BrowserRouter>
+      </HashRouter>
       </Provider>
      <ToastContainer/>
     </div>
