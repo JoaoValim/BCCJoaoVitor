@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/BCCJoaoVitor/static/css/main.99e4cf39.css",
-    "main.js": "/BCCJoaoVitor/static/js/main.bf143584.js",
+    "main.js": "/BCCJoaoVitor/static/js/main.459e0b87.js",
     "index.html": "/BCCJoaoVitor/index.html",
     "main.99e4cf39.css.map": "/BCCJoaoVitor/static/css/main.99e4cf39.css.map",
-    "main.bf143584.js.map": "/BCCJoaoVitor/static/js/main.bf143584.js.map"
+    "main.459e0b87.js.map": "/BCCJoaoVitor/static/js/main.459e0b87.js.map"
   },
   "entrypoints": [
     "static/css/main.99e4cf39.css",
-    "static/js/main.bf143584.js"
+    "static/js/main.459e0b87.js"
   ]
 }
